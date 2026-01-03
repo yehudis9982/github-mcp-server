@@ -165,10 +165,7 @@ def resolve_repo(repo: Optional[str], root_path: Optional[str]) -> str:
     if inferred:
         return inferred
 
-    if DEFAULT_GITHUB_REPO:
-        return parse_owner_repo(DEFAULT_GITHUB_REPO)
-
-    raise ValueError("Cannot resolve repo: provide repo, or run inside git repo, or set DEFAULT_GITHUB_REPO")
+    raise ValueError("Cannot resolve repo: provide 'repo' parameter or run inside a git repository")
 
 
 # -------------------------

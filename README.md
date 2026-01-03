@@ -159,6 +159,42 @@ That's it! The project is ready to use. No additional installation needed - it r
 
 ---
 
+## Project Structure
+
+```
+├── server.py              # Main MCP server - contains all tool implementations
+├── pyproject.toml         # Project metadata and dependencies
+├── uv.lock               # Locked dependency versions
+├── .env.example          # Example environment configuration
+├── .gitignore            # Git ignore patterns
+├── run_dev.ps1           # PowerShell script to run MCP inspector
+├── run_server.ps1        # PowerShell script to run the server
+└── README.md             # This file
+```
+
+### Key Files
+
+**`server.py`** - The heart of the project:
+- **Lines 1-40:** Configuration and imports
+- **Lines 42-170:** Repository resolution logic (parses `.git/config` without subprocess)
+- **Lines 172-210:** GitHub API helpers (authentication, request handling)
+- **Lines 212-770:** Tool implementations (9 GitHub API tools)
+
+**How it works:**
+1. Server loads and reads `GITHUB_TOKEN` from environment
+2. By default, automatically detects the repository from the `.git` folder in the current directory
+3. Can also explicitly specify:
+   - `repo` parameter - to query a different repository (e.g., "owner/repo")
+   - `root_path` parameter - to specify a different local directory
+4. Makes authenticated requests to GitHub REST API v3
+5. Returns structured data to the AI agent
+
+**Running the server:**
+- **Development/Testing:** `mcp dev server.py` (opens inspector)
+- **Production:** Configured in MCP client (Codex, Claude Desktop, etc.)
+
+---
+
 ## Configuration
 
 ### GitHub Token Setup
