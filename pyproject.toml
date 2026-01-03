@@ -1,0 +1,12 @@
+[project]
+name = "github-mcp-server"
+version = "0.1.0"
+description = "MCP server for GitHub integration - enables AI assistants to analyze repos, commits, issues, PRs and workflows"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.25.0",
+    "python-dotenv>=1.2.1",
+    "google-genai>=1.56.0",
+]
