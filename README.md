@@ -218,9 +218,21 @@ You should see `github-mcp` in the list.
 
 **Step 4: Test it**
 
-In Codex, try asking: "What repos do I have?" or "Show me info about owner/repo"
+In Codex, open a folder that contains a git repository and try asking:
 
-Once you see the tools working, you can ask any question that requires GitHub information (e.g., "What are the latest commits?", "Show me open issues", "Analyze the owner/repo repository"). Codex will automatically use the appropriate tools.
+**Basic queries:**
+- "Show me info about this repo"
+- "What are the latest commits?"
+- "Show me open issues"
+- "List recent workflow runs"
+
+**Analysis queries (Codex analyzes the data):**
+- "Analyze the changes in the last 10 commits"
+- "Summarize all open bugs"
+- "What are the most active files in recent commits?"
+- "Are there any security-related issues?"
+
+The server will automatically detect the repository from the `.git` folder. You can also specify a different repository explicitly: "Show me info about facebook/react"
 
 ---
 
