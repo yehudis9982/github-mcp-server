@@ -232,7 +232,7 @@ In Codex, open a folder that contains a git repository and try asking:
 - "What are the most active files in recent commits?"
 - "Are there any security-related issues?"
 
-The server will automatically detect the repository from the `.git` folder. You can also specify a different repository explicitly: "Show me info about facebook/react"
+The server will automatically detect the repository from the `.git` folder. You can also specify a different repository explicitly: "Show me info about owner/repo"
 
 ---
 
