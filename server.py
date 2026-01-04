@@ -4,7 +4,6 @@ GitHub MCP Server (FastMCP)
 
 from __future__ import annotations
 import base64
-import json
 import os
 import re
 from typing import Any, Optional
@@ -19,7 +18,6 @@ load_dotenv(dotenv_path=Path(__file__).with_name(".env"))
 
 # Configuration from environment
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-DEFAULT_GITHUB_REPO = os.getenv("DEFAULT_GITHUB_REPO")
 
 # SSL/Certificate configuration
 SSL_VERIFY = os.getenv("GITHUB_SSL_VERIFY", "true").lower() not in ("false", "0", "no")
@@ -37,7 +35,7 @@ _OWNER_REPO = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 
 
 # -------------------------
-# Repo resolution (repo -> git origin -> default)
+# Repo resolution
 # -------------------------
 def parse_owner_repo(repo_or_url: str) -> str:
     s = (repo_or_url or "").strip()
@@ -55,9 +53,7 @@ def parse_owner_repo(repo_or_url: str) -> str:
     raise ValueError("repo must be 'owner/repo' or a GitHub URL/SSH remote")
 
 def _clean_path(p: str) -> str:
-    # Clean whitespace/quotes and normalize path
     return os.path.normpath(p.strip().strip('"').strip("'"))
-from pathlib import Path
 
 def _find_git_dir(start: Path) -> Optional[Path]:
     """
@@ -109,7 +105,6 @@ def _parse_git_config_remote_url(config_text: str, remote_name: str = "origin") 
                 return parts[1].strip()
 
     # Second pass: fallback to first remote if origin not found
-    remote = None
     in_any_remote = False
     for line in lines:
         s = line.strip()
@@ -117,7 +112,6 @@ def _parse_git_config_remote_url(config_text: str, remote_name: str = "origin") 
             # detect any remote section
             m = re.fullmatch(r'\[remote\s+"([^"]+)"\]', s, flags=re.IGNORECASE)
             if m:
-                remote = m.group(1)
                 in_any_remote = True
             else:
                 in_any_remote = False
